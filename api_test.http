@@ -1,4 +1,4 @@
-POST http://localhost:8080/add
+POST http://localhost:8080/routes
 Content-Type: application/json
 
 {
@@ -7,6 +7,20 @@ Content-Type: application/json
 
 ###
 GET http://localhost:8080/health
+Accept: application/json
+
+###
+
+DELETE http://localhost:8080/routes
+Content-Type: application/json
+
+{
+  "route": "http://google.com"
+}
+
+###
+
+GET http://localhost:8080/routes
 Accept: application/json
 
 ###
