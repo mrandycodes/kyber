@@ -2,6 +2,7 @@ package server
 
 import (
 	"fmt"
+	"github.com/mrandycodes/kyber/internal/platform/server/handler/repeat"
 	"log"
 	"net/http"
 
@@ -43,4 +44,5 @@ func (s *Server) registerRoutes() {
 	s.engine.HandleFunc("/routes", routes_handlers.AddRouteHandler(s.repository)).Methods("POST")
 	s.engine.HandleFunc("/routes", routes_handlers.DeleteRouteHandler(s.repository)).Methods("DELETE")
 	s.engine.HandleFunc("/routes", routes_handlers.ListRoutesHandler(s.repository)).Methods("GET")
+	s.engine.PathPrefix("/api").Handler(http.HandlerFunc(repeat.RepetitionHandler(s.repository)))
 }
