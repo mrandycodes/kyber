@@ -1,0 +1,12 @@
+POST http://localhost:8080/add
+Content-Type: application/json
+
+{
+  "route": "http://google.com"
+}
+
+###
+GET http://localhost:8080/health
+Accept: application/json
+
+###
