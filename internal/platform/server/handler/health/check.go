@@ -2,7 +2,9 @@ package health
 
 import "net/http"
 
-func HealthHandler(w http.ResponseWriter, _ *http.Request) {
-	w.WriteHeader(http.StatusOK)
-	w.Write([]byte("everything is ok!"))
+func HealthHandler() func(http.ResponseWriter, *http.Request) {
+	return func(res http.ResponseWriter, req *http.Request) {
+		res.WriteHeader(http.StatusOK)
+		res.Write([]byte("everything is ok!"))
+	}
 }
