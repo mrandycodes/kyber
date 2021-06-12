@@ -2,15 +2,16 @@ package repeat
 
 import (
 	"encoding/json"
-	routes "github.com/mrandycodes/kyber/internal"
 	"io/ioutil"
 	"net/http"
 	"strings"
+
+	routes "github.com/mrandycodes/kyber/internal"
 )
 
 type repetitionResponse struct {
-	Path string `json:"path"`
-	Status string `json:"status"`
+	Path     string `json:"path"`
+	Status   string `json:"status"`
 	Response string `json:"response"`
 }
 
@@ -23,17 +24,21 @@ func RepetitionHandler(repository routes.RoutesRepository) func(http.ResponseWri
 		path := strings.TrimPrefix(req.RequestURI, "/api")
 		method := req.Method
 		body := req.Body
+		headers := req.Header.Clone()
 
 		for _, route := range repository.List() {
-			newRequest, _ := http.NewRequest(method, route.Value() + path, body)
+			newRequest, _ := http.NewRequest(method, route.Value()+path, body)
+			for key, value := range headers {
+				newRequest.Header.Add(key, value[len(value)-1])
+			}
 
 			response, _ := client.Do(newRequest)
 
 			body, _ := ioutil.ReadAll(response.Body)
 
 			responses = append(responses, repetitionResponse{
-				Path: route.Value() + path,
-				Status: response.Status,
+				Path:     route.Value() + path,
+				Status:   response.Status,
 				Response: string(body),
 			})
 		}
