@@ -2,9 +2,10 @@ package server
 
 import (
 	"fmt"
-	"github.com/mrandycodes/kyber/internal/platform/server/handler/repeat"
 	"log"
 	"net/http"
+
+	"github.com/mrandycodes/kyber/internal/platform/server/handler/repeat"
 
 	"github.com/gorilla/mux"
 
@@ -20,7 +21,7 @@ type Server struct {
 	repository routes.RoutesRepository
 }
 
-func New(host string, port uint, repository routes.RoutesRepository) Server {
+func New(host string, port int, repository routes.RoutesRepository) Server {
 	srv := Server{
 		engine:   mux.NewRouter(),
 		httpAddr: fmt.Sprintf("%s:%d", host, port),
