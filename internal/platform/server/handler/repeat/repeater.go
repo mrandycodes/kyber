@@ -33,10 +33,10 @@ func RepetitionHandler(repository routes.RoutesRepository) func(http.ResponseWri
 		wg := &sync.WaitGroup{}
 		wg.Add(numberOfRoutes)
 		for i, route := range routes {
-			go func(wg *sync.WaitGroup, i int) {
+			go func(wg *sync.WaitGroup, i int, route routes.Route) {
 				responses[i] = doRequest(method, route, path, body, headers)
 				wg.Done()
-			}(wg, i)
+			}(wg, i, route)
 
 		}
 
