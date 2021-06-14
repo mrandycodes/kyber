@@ -16,10 +16,12 @@ Kyber is a request repeater for HTTP-based APIs, made in Go.
 
 ### Docker
 
+The application is also available through [Docker](https://hub.docker.com/r/mrandycodes/kyber).
+
 ```bash
-docker build .
-docker run -it --rm -p 8080:8080 <built-reference> -host 0.0.0.0
+docker run -it --rm -p 8080:8080 mrandycodes/kyber:latest -host 0.0.0.0
 ```
+You need to pass `-host 0.0.0.0` in order to allow the container to capture the request from the host network.
 
 ## Getting Started
 
